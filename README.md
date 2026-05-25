@@ -1,6 +1,6 @@
 # tree-view-favourites
 
-Add files and folders to a favourites section in [tree-view-plus](https://web.pulsar-edit.dev/packages/tree-view-plus). Favourites persist globally across projects.
+Add files and folders to a favourites section in [tree-view-plus](https://github.com/asiloisad/pulsar-tree-view-plus). Favourites persist globally across projects.
 
 ![panel](https://github.com/asiloisad/pulsar-tree-view-favourites/blob/master/assets/view.png?raw=true)
 
@@ -8,7 +8,7 @@ Add files and folders to a favourites section in [tree-view-plus](https://web.pu
 
 To install `tree-view-favourites` search for [tree-view-favourites](https://web.pulsar-edit.dev/packages/tree-view-favourites) in the Install pane of the Pulsar settings or run `ppm install tree-view-favourites`. Alternatively, you can run `ppm install asiloisad/pulsar-tree-view-favourites` to install a package directly from the GitHub repository.
 
-Requires [tree-view-plus](https://web.pulsar-edit.dev/packages/tree-view-plus) for the `tree-view-roots` and `tree-view` services.
+Requires [tree-view-plus](https://github.com/asiloisad/pulsar-tree-view-plus) for the `tree-view-roots` and `tree-view` services.
 
 ## Features
 
@@ -20,6 +20,18 @@ Requires [tree-view-plus](https://web.pulsar-edit.dev/packages/tree-view-plus) f
 - **Toggle visibility**: Show or hide all group sections with the `tree-view-favourites:toggle` command.
 - **Edit favourites file**: Open the raw favourites file with the `tree-view-favourites:edit` command.
 - **External changes**: The favourites file is watched for changes, so edits from other windows or editors are picked up automatically.
+
+## Commands
+
+Commands available in `atom-workspace`:
+
+- `tree-view-favourites:toggle`: toggle favourites section visibility,
+- `tree-view-favourites:edit`: open the favourites file for editing.
+
+Commands available in `.tree-view`:
+
+- `tree-view-favourites:add`: add selected entries to favourites,
+- `tree-view-favourites:remove`: remove selected entries from their group.
 
 ## Groups
 
@@ -41,18 +53,6 @@ Configs: [
 ```
 
 Each group appears as its own collapsible root section in the tree view. Groups with no entries matching the current project are hidden automatically. Removing the last entry from a group deletes the group.
-
-## Commands
-
-Commands available in `atom-workspace`:
-
-- `tree-view-favourites:toggle`: toggle favourites section visibility,
-- `tree-view-favourites:edit`: open the favourites file for editing.
-
-Commands available in `.tree-view`:
-
-- `tree-view-favourites:add`: add selected entries to favourites,
-- `tree-view-favourites:remove`: remove selected entries from their group.
 
 ## Contributing
 
