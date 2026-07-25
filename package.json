@@ -7,9 +7,11 @@
     "url": "https://github.com/lumine-code/tree-view-favourites/issues"
   },
   "keywords": [
-    "tree-view",
-    "favourites",
-    "bookmarks"
+    "favorites",
+    "bookmarks",
+    "pinned",
+    "shortcuts",
+    "sidebar"
   ],
   "version": "1.0.0",
   "license": "MIT",
