@@ -1,0 +1,20 @@
+{
+  "context-menu": {
+    ".tree-view .full-menu .entry": [
+      { "type": "separator" },
+      { "label": "Add to Favourites", "command": "tree-view-favourites:add" },
+      { "type": "separator" }
+    ],
+    ".tree-view .multi-select": [
+      { "type": "separator" },
+      { "label": "Add to Favourites", "command": "tree-view-favourites:add" },
+      { "type": "separator" }
+    ],
+    ".tree-view .tree-view-special .tree-view-special-entry": [
+      { "type": "separator" },
+      { "label": "Remove from Group", "command": "tree-view-favourites:remove" },
+      { "label": "Copy Full Path", "command": "tree-view:copy-full-path" },
+      { "type": "separator" }
+    ]
+  }
+}

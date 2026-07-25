@@ -1,15 +1,27 @@
 {
   "name": "tree-view-favourites",
-  "version": "0.4.0",
-  "main": "./lib/main",
-  "description": "Add files and folders to a favourites section in tree-view-plus",
-  "repository": "https://github.com/asiloisad/pulsar-tree-view-favourites",
+  "author": "lumine-code",
+  "description": "Add files and folders to favourite group sections in the tree view",
+  "repository": "https://github.com/lumine-code/tree-view-favourites",
   "bugs": {
-    "url": "https://github.com/asiloisad/pulsar-tree-view-favourites/issues"
+    "url": "https://github.com/lumine-code/tree-view-favourites/issues"
   },
+  "keywords": [
+    "tree-view",
+    "favourites",
+    "bookmarks"
+  ],
+  "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.100.0"
+    "atom": ">=1.100.0 <2.0.0"
+  },
+  "main": "./lib/main",
+  "scripts": {
+    "test": "cd ../lumine && npm run test:only -- ../tree-view-favourites/spec",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "consumedServices": {
     "tree-view": {
@@ -22,5 +34,13 @@
         "1.0.0": "consumeRoots"
       }
     }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.2.2",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.6"
   }
 }
