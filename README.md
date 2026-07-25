@@ -44,8 +44,8 @@ Each group appears as its own collapsible root section in the tree view. Groups 
 
 ## Services
 
-- **tree-view** (`1.0.0`): consumed to read the selected entries that the add command operates on.
-- **tree-view-roots** (`1.0.0`): consumed to register each favourites group as a virtual root section in the tree view.
+- **tree-view** (`^1.0.0`): consumed to read the selected entries that the add command operates on.
+- **tree-view-roots** (`^1.0.0`): consumed to register each favourites group as a virtual root section in the tree view.
 
 ## Contributing
 

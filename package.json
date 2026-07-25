@@ -26,12 +26,12 @@
   "consumedServices": {
     "tree-view": {
       "versions": {
-        "1.0.0": "consumeTreeView"
+        "^1.0.0": "consumeTreeView"
       }
     },
     "tree-view-roots": {
       "versions": {
-        "1.0.0": "consumeRoots"
+        "^1.0.0": "consumeRoots"
       }
     }
   },
