@@ -1,6 +1,8 @@
 # tree-view-favourites
 
-Add files and folders to favourite group sections in the tree view. Favourites persist globally across projects.
+Add files and folders to favourite sections in the tree view.
+
+Favourites persist globally across projects.
 
 ## Features
 

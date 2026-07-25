@@ -1,7 +1,7 @@
 {
   "name": "tree-view-favourites",
   "author": "lumine-code",
-  "description": "Add files and folders to favourite group sections in the tree view",
+  "description": "Add files and folders to favourite sections in the tree view.",
   "repository": "https://github.com/lumine-code/tree-view-favourites",
   "bugs": {
     "url": "https://github.com/lumine-code/tree-view-favourites/issues"
