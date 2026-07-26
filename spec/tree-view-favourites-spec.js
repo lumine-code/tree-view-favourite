@@ -87,7 +87,7 @@ describe("tree-view-favourites", () => {
     treeViewElement = document.createElement("div");
     treeViewElement.classList.add("tree-view");
     workspaceElement.appendChild(treeViewElement);
-    mainModule.consumeRoots(createFakeRootsApi(treeViewElement));
+    mainModule.consumeTreeViewRoots(createFakeRootsApi(treeViewElement));
   });
 
   afterEach(() => {
@@ -151,7 +151,7 @@ describe("tree-view-favourites", () => {
     });
 
     it("adds the tree-view selection through the consumed tree-view service", () => {
-      mainModule.consumeTreeView({ selectedPaths: () => [fileA, fileB] });
+      mainModule.consumeTreeViewSelection({ selectedPaths: () => [fileA, fileB] });
       mainModule.addSelected();
 
       expect(mainModule.store.groups.Favourites).toEqual([fileA, fileB]);
