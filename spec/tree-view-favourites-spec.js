@@ -26,7 +26,7 @@ function waitFor(predicate, timeout = 4000) {
   });
 }
 
-// A stand-in for the tree-view package's `tree-view-roots` service that mimics
+// A stand-in for the tree-view package's `tree-view.roots` service that mimics
 // the shape of its registerRoot handles and special-root DOM.
 function createFakeRootsApi(container) {
   return {
@@ -138,7 +138,7 @@ describe("tree-view-favourites", () => {
     });
   });
 
-  describe("the tree-view-roots integration", () => {
+  describe("the tree-view.roots integration", () => {
     it("registers a section for each group and renders its entries", () => {
       mainModule.store.addEntry("Favourites", fileA);
       mainModule.syncRoots();
