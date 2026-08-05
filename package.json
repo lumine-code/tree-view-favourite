@@ -22,6 +22,12 @@
     "{% if keys['tree-view-favourites:toggle'] %}You can show or hide your favourite files at the top of the tree view with {{ 'tree-view-favourites:toggle' | keystroke }}{% else %}You can pin the files and folders you use most into favourite sections at the top of the tree view.{% endif %}"
   ],
   "main": "./lib/main",
+  "files": [
+    "keymaps",
+    "lib",
+    "menus",
+    "spec"
+  ],
   "scripts": {
     "test": "lumine --test spec",
     "lint": "eslint . --max-warnings 0",
