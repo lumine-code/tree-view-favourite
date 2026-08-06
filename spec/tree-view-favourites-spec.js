@@ -91,7 +91,9 @@ describe("tree-view-favourites", () => {
   });
 
   afterEach(() => {
-    fs.rmSync(projectDir, { recursive: true, force: true });
+    // Retries because Windows keeps a directory non-empty until the last handle on a child
+    // closes, and `force` swallows only ENOENT.
+    fs.rmSync(projectDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
   });
 
   it("registers its commands", () => {
