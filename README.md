@@ -52,7 +52,7 @@ A favourite whose path no longer exists is shown struck through rather than drop
 
 ## Customization
 
-Every group gets its own classes, derived from its name: `favourites-section` on the section list, `favourites-root` on its header, and `favourites-entry` on each row in it. Paste something like this into your `styles.css` to tint one group:
+Every group gets its own classes, derived from its name: `favourites-section` on the section list, `favourites-section-root` on its header, and `favourites-entry` on every row in it. Paste something like this into your `styles.css` to tint one group:
 
 ```css
 .tree-view .prototypes-section .prototypes-entry .name {
