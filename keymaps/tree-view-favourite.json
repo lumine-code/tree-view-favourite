@@ -1,6 +1,0 @@
-{
-  ".tree-view .tree-view-special": {
-    "delete": "tree-view-favourites:remove",
-    "backspace": "tree-view-favourites:remove"
-  }
-}

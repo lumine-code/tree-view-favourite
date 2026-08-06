@@ -1,10 +1,10 @@
 {
-  "name": "tree-view-favourites",
+  "name": "tree-view-favourite",
   "author": "lumine-code",
   "description": "Add files and folders to favourite sections in the tree view.",
-  "repository": "https://github.com/lumine-code/tree-view-favourites",
+  "repository": "https://github.com/lumine-code/tree-view-favourite",
   "bugs": {
-    "url": "https://github.com/lumine-code/tree-view-favourites/issues"
+    "url": "https://github.com/lumine-code/tree-view-favourite/issues"
   },
   "keywords": [
     "favorites",
@@ -19,11 +19,19 @@
     "lumine": "^1.0.0"
   },
   "backgroundTips": [
-    "{% if keys['tree-view-favourites:toggle'] %}You can show or hide your favourite files at the top of the tree view with {{ 'tree-view-favourites:toggle' | keystroke }}{% else %}You can pin the files and folders you use most into favourite sections at the top of the tree view.{% endif %}"
+    "{% if keys['tree-view-favourite:toggle'] %}You can show or hide your favourite files at the top of the tree view with {{ 'tree-view-favourite:toggle' | keystroke }}{% else %}You can pin the files and folders you use most into favourite sections at the top of the tree view.{% endif %}",
+    "You can drop files onto a favourite section's header to pin them, and browse a pinned folder in place."
   ],
   "main": "./lib/main",
+  "configSchema": {
+    "defaultGroup": {
+      "title": "Default group",
+      "description": "The group new favourites are added to. A group with no entries in the current project is hidden, and one with no entries at all is dropped.",
+      "type": "string",
+      "default": "Favourites"
+    }
+  },
   "files": [
-    "keymaps",
     "lib",
     "menus",
     "spec"
