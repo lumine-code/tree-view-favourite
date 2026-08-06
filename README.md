@@ -11,7 +11,7 @@ Favourites persist globally across projects.
 - **Folders open in place**: a favourite folder expands like a project folder, so its contents are browsable without leaving the section.
 - **Project filtering**: only favourites within the current project's directories are shown.
 - **Context menu**: right-click any file or folder to add it to favourites. Right-click a favourite to remove it or reveal it where it lives.
-- **Drag and drop**: drop entries onto a section header to add them to that group.
+- **Drag and drop**: drop entries onto a section header to add them to that group, or onto another group's header to move them there.
 - **Toggle visibility**: show or hide all group sections with the `tree-view-favourite:toggle` command.
 - **External changes**: the favourite file is watched, so edits from other windows or editors are picked up automatically.
 

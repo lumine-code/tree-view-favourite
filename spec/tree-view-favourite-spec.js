@@ -200,6 +200,25 @@ describe("tree-view-favourite", () => {
       expect(store.groups.Favourites).toEqual([fileA, fileB, folder]);
     });
 
+    it("moves a favourite dropped on another group's header", () => {
+      pin(fileA);
+      pin(fileB, "Extras");
+
+      section("Extras").config.onDrop([fileA]);
+
+      expect(store.groups.Favourites).toBeUndefined();
+      expect(store.groups.Extras).toEqual([fileB, fileA]);
+    });
+
+    it("falls back to a usable group name when the setting is blank", () => {
+      atom.config.set("tree-view-favourite.defaultGroup", "   ");
+
+      mainModule.addPaths([fileA]);
+
+      expect(store.groups.Favourites).toEqual([fileA]);
+      atom.config.unset("tree-view-favourite.defaultGroup");
+    });
+
     it("removes the selection with tree-view-favourite:remove", () => {
       pin(fileA);
       treeView.selectEntry(section().entries[0]);
