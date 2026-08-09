@@ -34,7 +34,7 @@ describe("tree-view-favourite", () => {
   // suite used to build could not have caught a single one of the contract
   // changes it was meant to pin.
   beforeEach(async () => {
-    workspaceElement = atom.views.getView(atom.workspace);
+    workspaceElement = lumine.views.getView(lumine.workspace);
     jasmine.attachToDOM(workspaceElement);
 
     projectDir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "tree-view-favourite-")));
@@ -46,10 +46,10 @@ describe("tree-view-favourite", () => {
     fs.writeFileSync(fileB, "b");
     fs.mkdirSync(folder);
     fs.writeFileSync(folderFile, "inner");
-    atom.project.setPaths([projectDir]);
+    lumine.project.setPaths([projectDir]);
 
-    const treeViewPackage = await atom.packages.activatePackage("tree-view");
-    ({ mainModule } = await atom.packages.activatePackage("tree-view-favourite"));
+    const treeViewPackage = await lumine.packages.activatePackage("tree-view");
+    ({ mainModule } = await lumine.packages.activatePackage("tree-view-favourite"));
     treeView = treeViewPackage.mainModule.getTreeViewInstance();
 
     // Both packages survive across specs, so reset what they accumulated.
@@ -68,7 +68,7 @@ describe("tree-view-favourite", () => {
     // underneath one. The tree view rebuilds its roots on a debounced
     // onDidChangePaths, and the spec runner freezes setTimeout, so the
     // debounce never fires here — do the rebuild by hand.
-    atom.project.setPaths([]);
+    lumine.project.setPaths([]);
     treeView.updateRoots();
     // Retries because Windows keeps a directory non-empty until the last handle on a child
     // closes, and `force` swallows only ENOENT.
@@ -86,13 +86,13 @@ describe("tree-view-favourite", () => {
   }
 
   it("registers its commands", () => {
-    const workspaceCommands = atom.commands
+    const workspaceCommands = lumine.commands
       .findCommands({ target: workspaceElement })
       .map((command) => command.name);
     expect(workspaceCommands).toContain("tree-view-favourite:edit");
     expect(workspaceCommands).toContain("tree-view-favourite:toggle");
 
-    const treeCommands = atom.commands
+    const treeCommands = lumine.commands
       .findCommands({ target: treeView.element })
       .map((command) => command.name);
     expect(treeCommands).toContain("tree-view-favourite:add");
@@ -102,7 +102,7 @@ describe("tree-view-favourite", () => {
 
   describe("the favourite store", () => {
     it("persists groups to favourite.json in the config directory", () => {
-      expect(store.filePath).toBe(path.join(atom.getConfigDirPath(), "favourite.json"));
+      expect(store.filePath).toBe(path.join(lumine.getConfigDirPath(), "favourite.json"));
       pin(fileA);
 
       const data = JSON.parse(fs.readFileSync(store.filePath, "utf8"));
@@ -127,14 +127,14 @@ describe("tree-view-favourite", () => {
     });
 
     it("keeps what it has when the file is mid-edit rather than reading it as empty", () => {
-      spyOn(atom.notifications, "addWarning");
+      spyOn(lumine.notifications, "addWarning");
       store.addEntry("Favourites", fileA);
       spyOn(store, "contentsOnDisk").and.returnValue('{ "Favourites": [');
 
       store.load();
 
       expect(store.groups.Favourites).toEqual([fileA]);
-      expect(atom.notifications.addWarning).toHaveBeenCalled();
+      expect(lumine.notifications.addWarning).toHaveBeenCalled();
     });
 
     it("gives two groups that kebab alike distinct class names", () => {
@@ -176,7 +176,7 @@ describe("tree-view-favourite", () => {
       treeView.selectEntry(treeView.treeEntryForPath(fileB));
       treeView.selectMultipleEntries(section().root);
 
-      atom.commands.dispatch(treeView.element, "tree-view-favourite:add");
+      lumine.commands.dispatch(treeView.element, "tree-view-favourite:add");
 
       expect(store.groups.Favourites).toEqual([fileA, fileB]);
     });
@@ -211,19 +211,19 @@ describe("tree-view-favourite", () => {
     });
 
     it("falls back to a usable group name when the setting is blank", () => {
-      atom.config.set("tree-view-favourite.defaultGroup", "   ");
+      lumine.config.set("tree-view-favourite.defaultGroup", "   ");
 
       mainModule.addPaths([fileA]);
 
       expect(store.groups.Favourites).toEqual([fileA]);
-      atom.config.unset("tree-view-favourite.defaultGroup");
+      lumine.config.unset("tree-view-favourite.defaultGroup");
     });
 
     it("removes the selection with tree-view-favourite:remove", () => {
       pin(fileA);
       treeView.selectEntry(section().entries[0]);
 
-      atom.commands.dispatch(treeView.element, "tree-view-favourite:remove");
+      lumine.commands.dispatch(treeView.element, "tree-view-favourite:remove");
 
       expect(store.getGroupNames()).toEqual([]);
       expect(treeView.specialRoots.length).toBe(0);
@@ -233,7 +233,7 @@ describe("tree-view-favourite", () => {
       pin(folder);
       treeView.selectEntry(section().entries[0]);
 
-      await atom.commands.dispatch(treeView.element, "tree-view-favourite:reveal");
+      await lumine.commands.dispatch(treeView.element, "tree-view-favourite:reveal");
       await waitFor(() => treeView.selectedEntry()?.section == null);
 
       expect(treeView.selectedEntry().getPath()).toBe(folder);
@@ -244,10 +244,10 @@ describe("tree-view-favourite", () => {
       pin(fileA);
       expect(section().element.hidden).toBe(false);
 
-      atom.commands.dispatch(workspaceElement, "tree-view-favourite:toggle");
+      lumine.commands.dispatch(workspaceElement, "tree-view-favourite:toggle");
       expect(section().element.hidden).toBe(true);
 
-      atom.commands.dispatch(workspaceElement, "tree-view-favourite:toggle");
+      lumine.commands.dispatch(workspaceElement, "tree-view-favourite:toggle");
       expect(section().element.hidden).toBe(false);
     });
 

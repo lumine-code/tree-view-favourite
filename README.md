@@ -21,7 +21,7 @@ To install `tree-view-favourite` search for _tree-view-favourite_ in the Install
 
 ## Commands
 
-Commands available in `atom-workspace`:
+Commands available in `lumine-workspace`:
 
 - `tree-view-favourite:toggle`: toggle favourites section visibility,
 - `tree-view-favourite:edit`: open the favourite file for editing.
