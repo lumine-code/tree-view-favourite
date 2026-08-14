@@ -17,7 +17,7 @@ Favourites persist globally across projects.
 
 ## Installation
 
-To install `tree-view-favourite` search for _tree-view-favourite_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/tree-view-favourite`.
+To install `tree-view-favourite` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/tree-view-favourite`.
 
 ## Commands
 
@@ -62,8 +62,8 @@ Every group gets its own classes, derived from its name: `favourites-section` on
 
 ## Services
 
-- **tree-view.selection** (`^1.0.0`): consumed to read the selected entries the add, remove and reveal commands operate on.
-- **tree-view.roots** (`^1.0.0`): consumed to register each favourites group as a virtual root section in the tree view.
+- `tree-view.selection`: consumed to read the selected entries the add, remove and reveal commands operate on.
+- `tree-view.roots`: consumed to register each favourites group as a virtual root section in the tree view.
 
 ## Contributing
 
