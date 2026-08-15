@@ -2,29 +2,12 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-// The spec runner freezes `setTimeout`, so poll on animation frames instead.
-function waitFor(predicate, timeout = 4000) {
-  const start = Date.now();
-  return new Promise((resolve, reject) => {
-    const check = () => {
-      let value;
-      try {
-        value = predicate();
-      } catch (error) {
-        reject(error);
-        return;
-      }
-      if (value) {
-        resolve(value);
-      } else if (Date.now() - start > timeout) {
-        reject(new Error("Timed out waiting for condition"));
-      } else {
-        requestAnimationFrame(check);
-      }
-    };
-    check();
-  });
-}
+// `conditionPromise` is the harness global every suite in the ecosystem
+// shares. The hand-rolled waiter this replaced deadlined on `Date.now()`,
+// which the runner freezes at 0 — so its timeout never fired and a condition
+// that never came hung until Jasmine's 120s ceiling instead of failing with
+// the reason.
+const waitFor = (predicate, description) => conditionPromise(predicate, description);
 
 describe("tree-view-favourite", () => {
   let workspaceElement, mainModule, store, treeView;
@@ -234,7 +217,10 @@ describe("tree-view-favourite", () => {
       treeView.selectEntry(section().entries[0]);
 
       await lumine.commands.dispatch(treeView.element, "tree-view-favourite:reveal");
-      await waitFor(() => treeView.selectedEntry()?.section == null);
+      await waitFor(
+        () => treeView.selectedEntry()?.section == null,
+        "the selection to leave the section",
+      );
 
       expect(treeView.selectedEntry().getPath()).toBe(folder);
       expect(treeView.selectedEntry().section).toBeNull();
@@ -272,9 +258,12 @@ describe("tree-view-favourite", () => {
 
       fs.writeFileSync(store.filePath, JSON.stringify({ External: [fileB] }, null, 2));
 
-      await waitFor(() => store.getGroupNames().includes("External"));
+      await waitFor(
+        () => store.getGroupNames().includes("External"),
+        "the watcher to report the external edit",
+      );
       expect(store.groups.External).toEqual([fileB]);
-      await waitFor(() => mainModule.rootHandles.has("External"));
+      await waitFor(() => mainModule.rootHandles.has("External"), "the External section to appear");
     });
 
     it("ignores the write it just made itself", async () => {
