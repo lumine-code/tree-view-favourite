@@ -58,11 +58,11 @@ describe("tree-view-favourite", () => {
     fs.rmSync(projectDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
   });
 
-  function section(groupName = "Favourites") {
+  function section(groupName = "Favourite") {
     return treeView.specialRoots.find((candidate) => candidate.config.name === groupName);
   }
 
-  function pin(entryPath, groupName = "Favourites") {
+  function pin(entryPath, groupName = "Favourite") {
     store.addEntry(groupName, entryPath);
     store.save();
     mainModule.syncRoots();
@@ -89,34 +89,34 @@ describe("tree-view-favourite", () => {
       pin(fileA);
 
       const data = JSON.parse(fs.readFileSync(store.filePath, "utf8"));
-      expect(data.Favourites).toEqual([fileA]);
+      expect(data.Favourite).toEqual([fileA]);
     });
 
     it("deduplicates entries and deletes empty groups", () => {
-      expect(store.addEntry("Favourites", fileA)).toBe(true);
-      expect(store.addEntry("Favourites", fileA)).toBe(false);
-      expect(store.groups.Favourites).toEqual([fileA]);
+      expect(store.addEntry("Favourite", fileA)).toBe(true);
+      expect(store.addEntry("Favourite", fileA)).toBe(false);
+      expect(store.groups.Favourite).toEqual([fileA]);
 
-      expect(store.removeEntry("Favourites", fileA)).toBe(true);
+      expect(store.removeEntry("Favourite", fileA)).toBe(true);
       expect(store.getGroupNames()).toEqual([]);
     });
 
     it("filters entries to the current project paths", () => {
       const foreign = path.join(os.tmpdir(), "unrelated", "x.js");
-      store.addEntry("Favourites", fileA);
-      store.addEntry("Favourites", foreign);
+      store.addEntry("Favourite", fileA);
+      store.addEntry("Favourite", foreign);
 
-      expect(store.getFilteredEntries("Favourites")).toEqual([fileA]);
+      expect(store.getFilteredEntries("Favourite")).toEqual([fileA]);
     });
 
     it("keeps what it has when the file is mid-edit rather than reading it as empty", () => {
       spyOn(lumine.notifications, "addWarning");
-      store.addEntry("Favourites", fileA);
-      spyOn(store, "contentsOnDisk").and.returnValue('{ "Favourites": [');
+      store.addEntry("Favourite", fileA);
+      spyOn(store, "contentsOnDisk").and.returnValue('{ "Favourite": [');
 
       store.load();
 
-      expect(store.groups.Favourites).toEqual([fileA]);
+      expect(store.groups.Favourite).toEqual([fileA]);
       expect(lumine.notifications.addWarning).toHaveBeenCalled();
     });
 
@@ -136,7 +136,7 @@ describe("tree-view-favourite", () => {
       const rows = section().element.querySelectorAll(".tree-view-special-entry");
       expect(rows.length).toBe(1);
       expect(rows[0].getPath()).toBe(fileA);
-      expect(rows[0]).toHaveClass("favourites-entry");
+      expect(rows[0]).toHaveClass("favourite-entry");
     });
 
     it("expands a pinned folder in place", async () => {
@@ -161,7 +161,7 @@ describe("tree-view-favourite", () => {
 
       lumine.commands.dispatch(treeView.element, "tree-view-favourite:add");
 
-      expect(store.groups.Favourites).toEqual([fileA, fileB]);
+      expect(store.groups.Favourite).toEqual([fileA, fileB]);
     });
 
     it("unpins rather than deletes when tree-view:remove reaches a pinned row", async () => {
@@ -180,7 +180,7 @@ describe("tree-view-favourite", () => {
 
       section().config.onDrop([fileB, folder]);
 
-      expect(store.groups.Favourites).toEqual([fileA, fileB, folder]);
+      expect(store.groups.Favourite).toEqual([fileA, fileB, folder]);
     });
 
     it("moves a favourite dropped on another group's header", () => {
@@ -189,7 +189,7 @@ describe("tree-view-favourite", () => {
 
       section("Extras").config.onDrop([fileA]);
 
-      expect(store.groups.Favourites).toBeUndefined();
+      expect(store.groups.Favourite).toBeUndefined();
       expect(store.groups.Extras).toEqual([fileB, fileA]);
     });
 
@@ -198,7 +198,7 @@ describe("tree-view-favourite", () => {
 
       mainModule.addPaths([fileA]);
 
-      expect(store.groups.Favourites).toEqual([fileA]);
+      expect(store.groups.Favourite).toEqual([fileA]);
       lumine.config.unset("tree-view-favourite.defaultGroup");
     });
 
@@ -240,14 +240,14 @@ describe("tree-view-favourite", () => {
     it("drops the section when the group vanishes from the store", () => {
       pin(fileA);
       pin(fileB, "Extras");
-      expect(Array.from(mainModule.rootHandles.keys()).sort()).toEqual(["Extras", "Favourites"]);
+      expect(Array.from(mainModule.rootHandles.keys()).sort()).toEqual(["Extras", "Favourite"]);
       const extrasElement = section("Extras").element;
 
       store.removeEntry("Extras", fileB);
       store.save();
       mainModule.syncRoots();
 
-      expect(Array.from(mainModule.rootHandles.keys())).toEqual(["Favourites"]);
+      expect(Array.from(mainModule.rootHandles.keys())).toEqual(["Favourite"]);
       expect(extrasElement.parentElement).toBeNull();
     });
   });

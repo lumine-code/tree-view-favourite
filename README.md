@@ -7,7 +7,7 @@ Favourites persist globally across projects.
 ## Features
 
 - **Global favourites**: favourite paths are stored in `~/.lumine/favourite.json` and persist across sessions.
-- **Named groups**: organize favourites into multiple groups (e.g. Favourites, Prototypes, Configs). Each group appears as a separate root section in the tree view.
+- **Named groups**: organize favourites into multiple groups (e.g. Favourite, Prototypes, Configs). Each group appears as a separate root section in the tree view.
 - **Folders open in place**: a favourite folder expands like a project folder, so its contents are browsable without leaving the section.
 - **Project filtering**: only favourites within the current project's directories are shown.
 - **Context menu**: right-click any file or folder to add it to favourites. Right-click a favourite to remove it or reveal it where it lives.
@@ -23,7 +23,7 @@ To install `tree-view-favourite` search for it in the Install pane of the Lumine
 
 Commands available in `lumine-workspace`:
 
-- `tree-view-favourite:toggle`: toggle favourites section visibility,
+- `tree-view-favourite:toggle`: toggle favourite section visibility,
 - `tree-view-favourite:edit`: open the favourite file for editing.
 
 Commands available in `.tree-view`:
@@ -36,11 +36,11 @@ The tree view's own `tree-view:remove` also removes a favourite from its group r
 
 ## Configuration
 
-Favourites are stored in `~/.lumine/favourite.json` as named groups. New favourites go to the group named by the **Default group** setting, `Favourites` unless you change it. Add further groups by editing the file directly (`tree-view-favourite:edit`):
+Favourites are stored in `~/.lumine/favourite.json` as named groups. New favourites go to the group named by the **Default group** setting, `Favourite` unless you change it. Add further groups by editing the file directly (`tree-view-favourite:edit`):
 
 ```json
 {
-  "Favourites": ["C:\\Projects\\my-app\\src", "C:\\Projects\\my-app\\README.md"],
+  "Favourite": ["C:\\Projects\\my-app\\src", "C:\\Projects\\my-app\\README.md"],
   "Prototypes": ["C:\\Projects\\my-app\\experiments\\prototype-a.js"],
   "Configs": ["C:\\Projects\\my-app\\eslint.config.js", "C:\\Projects\\my-app\\tsconfig.json"]
 }
@@ -52,7 +52,7 @@ A favourite whose path no longer exists is shown struck through rather than drop
 
 ## Customization
 
-Every group gets its own classes, derived from its name: `favourites-section` on the section list, `favourites-section-root` on its header, and `favourites-entry` on every row in it. Paste something like this into your `styles.css` to tint one group:
+Every group gets its own classes, derived from its name: `favourite-section` on the section list, `favourite-section-root` on its header, and `favourite-entry` on every row in it. Paste something like this into your `styles.css` to tint one group:
 
 ```css
 .tree-view .prototypes-section .prototypes-entry .name {
@@ -63,7 +63,7 @@ Every group gets its own classes, derived from its name: `favourites-section` on
 ## Services
 
 - `tree-view.selection`: consumed to read the selected entries the add, remove and reveal commands operate on.
-- `tree-view.roots`: consumed to register each favourites group as a virtual root section in the tree view.
+- `tree-view.roots`: consumed to register each favourite group as a virtual root section in the tree view.
 
 ## Contributing
 

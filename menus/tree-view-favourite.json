@@ -2,17 +2,17 @@
   "context-menu": {
     ".tree-view .full-menu .entry:not(.tree-view-special-entry):not(.tree-view-special-root)": [
       { "type": "separator" },
-      { "label": "Add to Favourites", "command": "tree-view-favourite:add" },
+      { "label": "Add to Favourite", "command": "tree-view-favourite:add" },
       { "type": "separator" }
     ],
     ".tree-view .multi-select:not(.special-select)": [
       { "type": "separator" },
-      { "label": "Add to Favourites", "command": "tree-view-favourite:add" },
+      { "label": "Add to Favourite", "command": "tree-view-favourite:add" },
       { "type": "separator" }
     ],
     ".tree-view .tree-view-special-entry": [
       { "type": "separator" },
-      { "label": "Remove from Favourites", "command": "tree-view-favourite:remove" },
+      { "label": "Remove from Favourite", "command": "tree-view-favourite:remove" },
       { "label": "Reveal in Tree View", "command": "tree-view-favourite:reveal" },
       { "type": "separator" }
     ]

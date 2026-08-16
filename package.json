@@ -28,7 +28,7 @@
       "title": "Default group",
       "description": "The group new favourites are added to. A group with no entries in the current project is hidden, and one with no entries at all is dropped.",
       "type": "string",
-      "default": "Favourites"
+      "default": "Favourite"
     }
   },
   "files": [
