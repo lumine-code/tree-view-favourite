@@ -46,16 +46,13 @@ describe("tree-view-favourite", () => {
     store.groups = {};
     store.save();
     mainModule.syncRoots();
-    // Drop the project before the directory: the tree view holds an fs.watch
-    // on every folder it expanded, and Windows refuses to remove a directory
-    // underneath one. The tree view rebuilds its roots on a debounced
+    // Drop the project before the directory. The tree view rebuilds its roots on a debounced
     // onDidChangePaths, and the spec runner freezes setTimeout, so the
     // debounce never fires here — do the rebuild by hand.
     lumine.project.setPaths([]);
     treeView.updateRoots();
-    // Retries because Windows keeps a directory non-empty until the last handle on a child
-    // closes, and `force` swallows only ENOENT.
-    fs.rmSync(projectDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
+    await lumine.fileWatchClient.settlePendingTeardown();
+    fs.rmSync(projectDir, { recursive: true, force: true });
   });
 
   function section(groupName = "Favourite") {
