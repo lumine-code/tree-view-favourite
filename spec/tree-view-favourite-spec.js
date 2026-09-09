@@ -254,7 +254,7 @@ describe("tree-view-favourite", () => {
 
   describe("external edits to the favourite file", () => {
     it("reloads groups when favourite.json changes on disk", async () => {
-      await store.file.getStartPromise();
+      await store.file.ready;
 
       fs.writeFileSync(store.filePath, JSON.stringify({ External: [fileB] }, null, 2));
 
@@ -267,7 +267,7 @@ describe("tree-view-favourite", () => {
     });
 
     it("ignores the write it just made itself", async () => {
-      await store.file.getStartPromise();
+      await store.file.ready;
       spyOn(store, "load").and.callThrough();
 
       pin(fileA);
