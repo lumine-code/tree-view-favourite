@@ -151,14 +151,37 @@ describe("tree-view-favourite", () => {
       );
     });
 
-    it("adds the tree-view selection, and never the section header itself", () => {
+    it("adds the tree-view selection, and never the section header itself", async () => {
       pin(fileA);
-      treeView.selectEntry(treeView.treeEntryForPath(fileB));
-      treeView.selectMultipleEntries(section().root);
+      // The path lookup falls back to a loaded ancestor until the directory's
+      // asynchronous listing finishes. Select the real file row after expansion.
+      await treeView.roots[0].expand();
+      const fileEntry = treeView.treeEntryForPath(fileB);
+      const header = section().root;
+      expect(fileEntry.getPath()).toBe(fileB);
+      expect(fileEntry.kind).toBe("file");
+      expect(header.specialRoot).toBe(true);
+      treeView.selectEntry(fileEntry);
+      treeView.selectMultipleEntries(header);
+      expect(treeView.getSelectedEntries()).toContain(fileEntry);
+      expect(treeView.getSelectedEntries()).toContain(header);
+      expect(treeView.selectedPaths()).toEqual([fileB]);
 
       lumine.commands.dispatch(treeView.element, "tree-view-favourite:add");
 
       expect(store.groups.Favourite).toEqual([fileA, fileB]);
+    });
+
+    it("leaves favourites unchanged when only a section header is selected", () => {
+      pin(fileA);
+      const header = section().root;
+      treeView.selectEntry(header);
+      expect(treeView.getSelectedEntries()).toEqual([header]);
+      expect(treeView.selectedPaths()).toEqual([]);
+
+      lumine.commands.dispatch(treeView.element, "tree-view-favourite:add");
+
+      expect(store.groups.Favourite).toEqual([fileA]);
     });
 
     it("unpins rather than deletes when tree-view:remove reaches a pinned row", async () => {
