@@ -13,7 +13,6 @@
     ".tree-view .tree-view-special-entry": [
       { "type": "separator" },
       { "label": "Remove from Favourite", "command": "tree-view-favourite:remove" },
-      { "label": "Reveal in Tree View", "command": "tree-view-favourite:reveal" },
       { "type": "separator" }
     ]
   }
