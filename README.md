@@ -56,7 +56,7 @@ Every group gets its own classes, derived from its name: `favourite-section` on 
 
 ```css
 .tree-view .prototypes-section .prototypes-entry .name {
-  color: var(--accent-only-text-color);
+  color: var(--accent-link-color);
 }
 ```
 
