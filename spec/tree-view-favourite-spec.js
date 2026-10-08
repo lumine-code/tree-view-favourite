@@ -37,14 +37,14 @@ describe("tree-view-favourite", () => {
 
     // Both packages survive across specs, so reset what they accumulated.
     store = mainModule.store;
-    store.groups = {};
-    store.save();
+    fs.writeFileSync(store.filePath, "{}\n");
+    store.load();
     mainModule.syncRoots();
   });
 
   afterEach(async () => {
-    store.groups = {};
-    store.save();
+    fs.writeFileSync(store.filePath, "{}\n");
+    store.load();
     mainModule.syncRoots();
     // Drop the project before the directory. The tree view rebuilds its roots on a debounced
     // onDidChangePaths, and the spec runner freezes setTimeout, so the
@@ -81,6 +81,56 @@ describe("tree-view-favourite", () => {
   });
 
   describe("the favourite store", () => {
+    for (const name of ["constructor", "toString", "__proto__"]) {
+      it(`adds, persists, reloads and removes the literal group ${name}`, () => {
+        expect(store.getFilteredEntries(name)).toEqual([]);
+        expect(store.removeEntry(name, fileA)).toBe(false);
+        expect(store.addEntry(name, fileA)).toBe(true);
+        expect(store.addEntry(name, fileA)).toBe(false);
+        expect(store.findGroupForPath(fileA)).toBe(name);
+        expect(store.getFilteredEntries(name)).toEqual([fileA]);
+        store.save();
+
+        const data = JSON.parse(fs.readFileSync(store.filePath, "utf8"));
+        expect(Object.hasOwn(data, name)).toBe(true);
+        expect(data[name]).toEqual([fileA]);
+        store.load();
+        expect(Object.getPrototypeOf(store.groups)).toBeNull();
+        expect(store.getGroupNames()).toEqual([name]);
+        expect(store.groups[name]).toEqual([fileA]);
+        expect(store.removeEntry(name, fileA)).toBe(true);
+        expect(store.removeEntry(name, fileA)).toBe(false);
+        store.save();
+        store.load();
+        expect(store.getGroupNames()).toEqual([]);
+      });
+    }
+
+    it("loads prototype-named groups from the file without changing the dictionary prototype", () => {
+      fs.writeFileSync(
+        store.filePath,
+        JSON.stringify({
+          ["__proto__"]: [fileA],
+          constructor: [fileB],
+          toString: [folder],
+        }),
+      );
+      store.load();
+
+      expect(Object.getPrototypeOf(store.groups)).toBeNull();
+      expect(store.getGroupNames()).toEqual(["__proto__", "constructor", "toString"]);
+      expect(store.groups.__proto__).toEqual([fileA]);
+      expect(store.findGroupForPath(fileA)).toBe("__proto__");
+      expect(store.findGroupForPath(fileB)).toBe("constructor");
+      expect(store.findGroupForPath(folder)).toBe("toString");
+      store.save();
+      expect(Object.keys(JSON.parse(fs.readFileSync(store.filePath, "utf8")))).toEqual([
+        "__proto__",
+        "constructor",
+        "toString",
+      ]);
+    });
+
     it("persists groups to favourite.json in the config directory", () => {
       expect(store.filePath).toBe(path.join(lumine.getConfigDirPath(), "favourite.json"));
       pin(fileA);
@@ -127,6 +177,18 @@ describe("tree-view-favourite", () => {
   });
 
   describe("the tree-view.roots integration", () => {
+    it("uses a prototype-named default group and removes its rendered section", () => {
+      lumine.config.set("tree-view-favourite.defaultGroup", "__proto__");
+      mainModule.addPaths([fileA]);
+      expect(section("__proto__").entries[0].getPath()).toBe(fileA);
+      expect(mainModule.rootHandles.has("__proto__")).toBe(true);
+
+      mainModule.removePaths([fileA]);
+      expect(mainModule.rootHandles.has("__proto__")).toBe(false);
+      expect(section("__proto__")).toBeUndefined();
+      expect(JSON.parse(fs.readFileSync(store.filePath, "utf8"))).toEqual({});
+    });
+
     it("registers a section for each group and renders its rows", () => {
       pin(fileA);
 
