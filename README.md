@@ -15,6 +15,8 @@ Favourites persist globally across projects.
 - **Toggle visibility**: show or hide all group sections with the `tree-view-favourite:toggle` command.
 - **External changes**: the favourite file is watched, so edits from other windows or editors are picked up automatically.
 
+![Pin frequently used files and folders above the project tree.](.github/demo.png)
+
 ## Installation
 
 To install `tree-view-favourite` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/tree-view-favourite`.

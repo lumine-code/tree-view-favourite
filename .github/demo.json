@@ -1,0 +1,16 @@
+{
+  "title": "tree-view-favourite",
+  "description": "Pin frequently used files and folders above the project tree.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "686d91c3f5b424cb4a777da162ae8472cbd63cb8",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Pin frequently used files and folders above the project tree.",
+      "width": 1200,
+      "height": 760
+    }
+  ]
+}
