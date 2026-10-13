@@ -8,7 +8,9 @@
           "submenu": [
             {
               "label": "Tree View Favourites",
-              "command": "tree-view-favourite:toggle"
+              "command": "tree-view-favourite:toggle",
+              "group": "panels",
+              "order": 10
             }
           ]
         }
