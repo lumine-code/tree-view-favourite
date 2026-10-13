@@ -1,7 +1,43 @@
 {
+  "menu": [
+    {
+      "label": "View",
+      "submenu": [
+        {
+          "label": "Toggle View",
+          "submenu": [
+            {
+              "label": "Tree View Favourites",
+              "command": "tree-view-favourite:toggle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "Tree View Favourite",
+          "submenu": [
+            {
+              "label": "Toggle Favourites",
+              "command": "tree-view-favourite:toggle"
+            },
+            {
+              "label": "Edit Favourites",
+              "command": "tree-view-favourite:edit"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "context-menu": {
     ".tree-view .full-menu .entry:not(.tree-view-special-entry):not(.tree-view-special-root)": [
-      { "type": "separator" },
+      {
+        "type": "separator"
+      },
       {
         "label": "Add to Favourite",
         "command": "tree-view-favourite:add",
@@ -21,10 +57,14 @@
           "tree-view:add-file"
         ]
       },
-      { "type": "separator" }
+      {
+        "type": "separator"
+      }
     ],
     ".tree-view .multi-select:not(.special-select)": [
-      { "type": "separator" },
+      {
+        "type": "separator"
+      },
       {
         "label": "Add to Favourite",
         "command": "tree-view-favourite:add",
@@ -44,10 +84,14 @@
           "tree-view:add-file"
         ]
       },
-      { "type": "separator" }
+      {
+        "type": "separator"
+      }
     ],
     ".tree-view .tree-view-special-entry": [
-      { "type": "separator" },
+      {
+        "type": "separator"
+      },
       {
         "label": "Remove from Favourite",
         "command": "tree-view-favourite:remove",
@@ -67,7 +111,9 @@
           "tree-view:add-file"
         ]
       },
-      { "type": "separator" }
+      {
+        "type": "separator"
+      }
     ]
   }
 }
