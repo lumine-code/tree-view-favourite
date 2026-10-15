@@ -57,7 +57,7 @@
         "type": "separator"
       },
       {
-        "label": "Add to Favourite",
+        "label": "Add to Favourites",
         "command": "tree-view-favourite:add",
         "afterGroupContaining": [
           "diff-view:enable",
@@ -68,7 +68,9 @@
           "tree-view:paste",
           "tree-view:remove",
           "tree-view:add-file"
-        ]
+        ],
+        "group": "favourites",
+        "order": 10
       },
       {
         "type": "separator"
@@ -79,7 +81,7 @@
         "type": "separator"
       },
       {
-        "label": "Add to Favourite",
+        "label": "Add to Favourites",
         "command": "tree-view-favourite:add",
         "afterGroupContaining": [
           "diff-view:enable",
@@ -90,7 +92,9 @@
           "tree-view:paste",
           "tree-view:remove",
           "tree-view:add-file"
-        ]
+        ],
+        "group": "favourites",
+        "order": 10
       },
       {
         "type": "separator"
@@ -101,7 +105,7 @@
         "type": "separator"
       },
       {
-        "label": "Remove from Favourite",
+        "label": "Remove from Favourites",
         "command": "tree-view-favourite:remove",
         "afterGroupContaining": [
           "diff-view:enable",
@@ -112,7 +116,9 @@
           "tree-view:paste",
           "tree-view:remove",
           "tree-view:add-file"
-        ]
+        ],
+        "group": "favourites",
+        "order": 20
       },
       {
         "type": "separator"
