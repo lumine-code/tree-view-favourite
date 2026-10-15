@@ -17,6 +17,22 @@
       ]
     },
     {
+      "label": "File",
+      "submenu": [
+        {
+          "label": "Configuration Files",
+          "submenu": [
+            {
+              "label": "Tree View Favourites",
+              "command": "tree-view-favourite:edit",
+              "group": "packages",
+              "order": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
       "label": "Packages",
       "submenu": [
         {
