@@ -17,7 +17,7 @@
       ]
     },
     {
-      "label": "File",
+      "label": "App",
       "submenu": [
         {
           "label": "Configuration Files",
