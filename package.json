@@ -51,7 +51,7 @@
   "consumedServices": {
     "tree-view.selection": {
       "versions": {
-        "^1.0.0": "consumeTreeViewSelection"
+        "^1.1.0": "consumeTreeViewSelection"
       }
     },
     "tree-view.roots": {

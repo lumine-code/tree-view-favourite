@@ -234,6 +234,29 @@ describe("tree-view-favourite", () => {
       expect(store.groups.Favourite).toEqual([fileA, fileB]);
     });
 
+    it("reveals a favourite through the versioned selection service with navigation intent", async () => {
+      pin(fileA);
+      treeView.selectEntry(section().entries[0]);
+      const provider = lumine.packages.getActivePackage("tree-view");
+      expect(provider.mainModule.getTreeViewInstance()).toBe(treeView);
+      console.log(
+        "TREE_SELECTION_PROVIDER=" +
+          JSON.stringify({
+            path: provider.path,
+            versions: Object.keys(
+              provider.metadata.providedServices["tree-view.selection"].versions,
+            ),
+          }),
+      );
+      const service = mainModule.treeView;
+      const revealPath = spyOn(service, "revealPath").and.callThrough();
+      const reveal = spyOn(lumine.scrollbars, "reveal");
+      await mainModule.revealSelected();
+      expect(revealPath).toHaveBeenCalledOnceWith(fileA, { navigation: true });
+      expect(treeView.selectedPaths()).toEqual([fileA]);
+      expect(reveal).toHaveBeenCalledOnceWith(treeView.scroller);
+    });
+
     it("leaves favourites unchanged when only a section header is selected", () => {
       pin(fileA);
       const header = section().root;

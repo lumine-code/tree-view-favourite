@@ -64,7 +64,7 @@ Every group gets its own classes, derived from its name: `favourite-section` on 
 
 ## Services
 
-- `tree-view.selection`: consumed to read the selected entries the add, remove and reveal commands operate on.
+- `tree-view.selection@^1.1.0`: consumed to read the selected entries and reveal a favourite with explicit navigation activity.
 - `tree-view.roots`: consumed to register each favourite group as a virtual root section in the tree view.
 
 ## Contributing

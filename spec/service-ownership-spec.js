@@ -6,7 +6,11 @@ describe("favourite tree service ownership", () => {
   let directory, file, treePackage, tree, main, providers;
 
   function provide(name, payload) {
-    const provider = lumine.packages.serviceHub.provide(name, "1.0.0", payload);
+    const provider = lumine.packages.serviceHub.provide(
+      name,
+      name === "tree-view.selection" ? "1.1.0" : "1.0.0",
+      payload,
+    );
     providers.push(provider);
     return provider;
   }
